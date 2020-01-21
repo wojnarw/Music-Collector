@@ -23,6 +23,7 @@ def fill (check_for_length, total_length, filler):
 
 
 def print_collection(collection):
+    print(ascii_top)
     for key, entry in collection.items():
         artist = entry.get("artist")
         album = entry.get("album")
@@ -37,7 +38,7 @@ def print_collection(collection):
         space5 = fill(album_length, 10, " ")
 
         print(f"\t█▒ {artist}{space1}{album}{space2}{year}{space3}{genre}{space4}{album_length} █▒")
-
+    print(ascii_bottom)
 
 
 if __name__ == "__main__":
@@ -59,6 +60,5 @@ if __name__ == "__main__":
         "length" : "42:20"
         }
     }
-    print(ascii_top)
+
     print_collection(collection)
-    print(ascii_bottom)
