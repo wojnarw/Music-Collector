@@ -22,7 +22,7 @@ def fill (check_for_length, total_length, filler):
 
 
 
-def print_collection(collection, ):
+def print_collection(collection):
     print(ascii_top)
     for key, entry in collection.items():
         artist = entry.get("artist")[0:23]
@@ -40,6 +40,17 @@ def print_collection(collection, ):
         print(f"\t█▒ {artist}{space1}{album}{space2}{year}{space3}{genre}{space4}{space5}{album_length} █▒")
     print(ascii_bottom)
 
+def print_options():
+    print("""\n\n\
+  ok    1 - As a user I want to view all imported albums
+  ok    2 - As a user I want to find all albums by genre
+        3 - As a user I want to find all albums from given time range
+        4 - As a user I want to find shortest/longest album
+  ok    5 - As a user I want to find all albums created by given artist
+  ok    6 - As a user I want to find album by album name
+        7 - As a user I want to get full report in form of set of given statistics (longest album, 
+            shortest album, oldest album, youngest album, all albums count + additional info, how many albums are given the genres)
+        ELSE - exit""")
 
 if __name__ == "__main__":
     collection = {

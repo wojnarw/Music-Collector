@@ -1,5 +1,5 @@
 # import display 
-from display import print_collection
+from display import print_collection, print_options
 
 def add_to_collection(collection, new_item):
     
@@ -38,25 +38,75 @@ def export_collection(collection, filename="export_collection.csv"):
     except:
         print(f"You don't have permission creating file '/nopermission.csv'!")
 
-def find_in_collection(category, search_word):
-    found = []
-    for i in collection:
-        test = collection[str(i)][category]
-        if test == search_word:
-            found.append(i)
-    print(found)
+def find_in_collection(category = "", search_word = ""):
+    if not category:
+        category = input("\n\tPlease insert category you want to search for (artist, album, year, genre, length): ")
+    if not search_word:
+        search_word = input("\n\tPlease insert search term: ")
 
-            
+    search_results = {}
+    for key in collection:
+        compare_word = collection[str(key)][category]
+        if compare_word.lower() == search_word.lower():
+            search_results.update({key : collection[key]})
+        
+    print_collection(search_results)
+
+def get_input():
+    choice = input("\n\tChoose whatcha ya gonna do now: ")
+
+    if choice == "1":
+        print_collection(collection)
+    elif choice == "2":
+        find_in_collection("genre")
+    elif choice == "3":
+        pass
+    elif choice == "4":
+        pass
+    elif choice == "5":
+        find_in_collection("artist")
+    elif choice == "6":
+        find_in_collection("album")
+    elif choice == "7":
+        pass
+
+    # def f(x):
+    #     return {
+    #         'a': 1,
+    #         'b': 2
+    #     }.get(x, 9)
+
+def sort_collection(category, order):
+
+    sorting_results = {}
+
+    if category == 'release_year':
+        sort_collection = sorted(collection, key=lambda x: int(collection[x]['release_year']), reverse=True)
+    elif category == 'length':
+        sort_collection = sorted(collection, key=lambda x: int(collection[x]['length'].replace(':','')), reverse=True)
+    else:
+        sort_collection = sorted(collection, key=lambda x: str(collection[x][category].lower()), reverse=True)
+    
+    for key in sort_collection:
+        sorting_results.update({key : collection[key]})
+        
+    print_collection(sorting_results) 
 
 if __name__ == "__main__":
     collection = {}
     import_collection(collection)
-    test = collection["10"]["genre"]
-    print(test)
+    #test = collection["10"]["genre"]
+    #print(test)
+    sort_collection("artist","desc")
+    sort_collection("album","desc")
+    sort_collection("release_year","desc")
+    sort_collection("genre","desc")
+    sort_collection("length","desc")
     print_collection(collection)
 
-    find_in_collection("genre","pop")
-    find_in_collection("artist","Pink Floyd")
+    #find_in_collection()
+    #find_in_collection("artist","Pink Floyd")
     
-
+    print_options()
+    get_input()
     #choice = input("\n\tChoose whatcha ya gonna do now")
