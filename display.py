@@ -20,27 +20,9 @@ def fill (check_for_length, total_length, filler):
 # dict_names = {'d1' : {'name':'bob', 'place':'lawn', 'animal':'man'},
 #               'd2' : {'name':'spot', 'place':'bed', 'animal':'dog'}}
 
-new_item = ["Pink Floyd","The Dark Side Of The Moon","1973","progressive rock","43:00"]
-collection = {
-    "klucz": 
-        {
-        "artist" : "Pink Floyd",
-        "album" : "The Dark Side Of The Moon",
-        "year" : "1973",
-        "genre" : "progressive rock",
-        "length" : "43:00"
-        },
-    "klucz2":
-        {
-        "artist" : "Britney Spears",
-        "album" : "Baby One More Time",
-        "release_year" : "1999",
-        "genre" : "pop",
-        "length" : "42:20"
-        }
-    }
 
-def print_list(collection):
+
+def print_collection(collection):
     for key, entry in collection.items():
         artist = entry.get("artist")
         album = entry.get("album")
@@ -59,6 +41,24 @@ def print_list(collection):
 
 
 if __name__ == "__main__":
+    collection = {
+    "klucz": 
+        {
+        "artist" : "Pink Floyd",
+        "album" : "The Dark Side Of The Moon",
+        "release_year" : "1973",
+        "genre" : "progressive rock",
+        "length" : "43:00"
+        },
+    "klucz2":
+        {
+        "artist" : "Britney Spears",
+        "album" : "Baby One More Time",
+        "release_year" : "1999",
+        "genre" : "pop",
+        "length" : "42:20"
+        }
+    }
     print(ascii_top)
-    print_list(collection)
+    print_collection(collection)
     print(ascii_bottom)
