@@ -1,14 +1,14 @@
 ascii_top = """
-\t████████████████████████████████████████████████████████████████████████████████████████████
-\t█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒
-\t█▒                                                                                         █▒
-\t█▒ ARTIST NAME             ALBUM NAME                    YEAR    GENRE              LENGTH █▒
-\t█▒                                                                                         █▒"""
+\t█████████████████████████████████████████████████████████████████████████████████████████████
+\t█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒
+\t█▒                                                                                          █▒
+\t█▒ ARTIST NAME             ALBUM NAME                    YEAR    GENRE               LENGTH █▒
+\t█▒                                                                                          █▒"""
 
 ascii_bottom = """\
-\t█▒                                                                                         █▒
-\t████████████████████████████████████████████████████████████████████████████████████████████▒
-\t ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"""
+\t█▒                                                                                          █▒
+\t█████████████████████████████████████████████████████████████████████████████████████████████▒
+\t ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"""
 
 #check how many spaces we need to make columns straight
 def fill (check_for_length, total_length, filler):
@@ -25,19 +25,19 @@ def fill (check_for_length, total_length, filler):
 def print_collection(collection):
     print(ascii_top)
     for key, entry in collection.items():
-        artist = entry.get("artist")
-        album = entry.get("album")
-        year = entry.get("release_year")
-        genre = entry.get("genre")
-        album_length = entry.get("length")
+        artist = entry.get("artist")[0:23]
+        album = entry.get("album")[0:29]
+        year = entry.get("release_year")[0:7]
+        genre = entry.get("genre")[0:19]
+        album_length = entry.get("length")[0:6]
         
         space1 = fill(artist, 24, " ")
         space2 = fill(album, 30, " ")
         space3 = fill(year, 8, " ")
         space4 = fill(genre, 20, " ")
-        space5 = fill(album_length, 10, " ")
+        space5 = fill(album_length, 6, " ")
 
-        print(f"\t█▒ {artist}{space1}{album}{space2}{year}{space3}{genre}{space4}{album_length} █▒")
+        print(f"\t█▒ {artist}{space1}{album}{space2}{year}{space3}{genre}{space4}{space5}{album_length} █▒")
     print(ascii_bottom)
 
 
@@ -46,18 +46,18 @@ if __name__ == "__main__":
     "klucz": 
         {
         "artist" : "Pink Floyd",
-        "album" : "The Dark Side Of The Moon",
+        "album" : "The Dark Side Of The MoonMoonMoonMoonMoonMoonMoonMoon",
         "release_year" : "1973",
         "genre" : "progressive rock",
         "length" : "43:00"
         },
     "klucz2":
         {
-        "artist" : "Britney Spears",
+        "artist" : "Britney SpearsSpearsSpearsSpearsSpearsSpears",
         "album" : "Baby One More Time",
-        "release_year" : "1999",
-        "genre" : "pop",
-        "length" : "42:20"
+        "release_year" : "199919991999",
+        "genre" : "poppoppoppoppoppoppoppop",
+        "length" : "123:20:20:20:20:20:20:20:20"
         }
     }
 
