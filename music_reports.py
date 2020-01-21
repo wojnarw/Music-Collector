@@ -16,14 +16,14 @@ def add_to_collection(collection, new_item):
 
 def import_collection(collection, filename="text_albums_data.txt"):
 
-    # try:
+    try:
         with open(filename) as collection_file:
             for line in collection_file:
                 new_item = line.split(',')
                 new_item[-1] = new_item[-1].rstrip('\n')
                 add_to_collection(collection,new_item)
-    # except:
-    #     print(f"File '{filename}' not found!")
+    except:
+        print(f"File '{filename}' not found!")
 
 def export_collection(collection, filename="export_collection.csv"):
 
@@ -38,9 +38,25 @@ def export_collection(collection, filename="export_collection.csv"):
     except:
         print(f"You don't have permission creating file '/nopermission.csv'!")
 
+def find_in_collection(category, search_word):
+    found = []
+    for i in collection:
+        test = collection[str(i)][category]
+        if test == search_word:
+            found.append(i)
+    print(found)
+
+            
+
 if __name__ == "__main__":
     collection = {}
     import_collection(collection)
-    # print(collection)
+    test = collection["10"]["genre"]
+    print(test)
     print_collection(collection)
 
+    find_in_collection("genre","pop")
+    find_in_collection("artist","Pink Floyd")
+    
+
+    #choice = input("\n\tChoose whatcha ya gonna do now")

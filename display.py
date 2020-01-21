@@ -22,7 +22,7 @@ def fill (check_for_length, total_length, filler):
 
 
 
-def print_collection(collection):
+def print_collection(collection, ):
     print(ascii_top)
     for key, entry in collection.items():
         artist = entry.get("artist")[0:23]
