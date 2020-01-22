@@ -38,11 +38,14 @@ def export_collection(collection, filename="export_collection.csv"):
     except:
         print(f"You don't have permission creating file '/nopermission.csv'!")
 
-def find_in_collection(category = "", search_word = ""):
+def find_in_collection(category = "", search_word = "", input_question = "\n\tPlease insert search term: "):
     if not category:
         category = input("\n\tPlease insert category you want to search for (artist, album, year, genre, length): ")
     if not search_word:
-        search_word = input("\n\tPlease insert search term: ")
+        search_word = input(input_question)
+
+    if category == "release_year":
+        year = search_word.split("-")
 
     search_results = {}
     for key in collection:
@@ -60,7 +63,7 @@ def get_input():
     elif choice == "2":
         find_in_collection("genre")
     elif choice == "3":
-        pass
+        find_in_collection("release_year", "", "Please specify time range in years, example \"1998-2002\" ")
     elif choice == "4":
         pass
     elif choice == "5":
@@ -80,10 +83,10 @@ def sort_collection(category, order):
 
     sorting_results = {}
 
-    if category == 'release_year':
-        sort_collection = sorted(collection, key=lambda x: int(collection[x]['release_year']), reverse=True)
-    elif category == 'length':
-        sort_collection = sorted(collection, key=lambda x: int(collection[x]['length'].replace(':','')), reverse=True)
+    if category == "release_year":
+        sort_collection = sorted(collection, key=lambda x: int(collection[x]["release_year"]), reverse=True)
+    elif category == "length":
+        sort_collection = sorted(collection, key=lambda x: int(collection[x]["length"].replace(':','')), reverse=True)
     else:
         sort_collection = sorted(collection, key=lambda x: str(collection[x][category].lower()), reverse=True)
     
