@@ -90,6 +90,7 @@ def get_input():
 # git checkout -b find_in_collection
 
 def sort_collection(category, order):
+    print("Test gita branch")
 
     sorting_results = {}
 
