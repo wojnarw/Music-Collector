@@ -45,7 +45,8 @@ def find_in_collection(category = "", search_word = "", input_question = "\n\tPl
         search_word = input(input_question)
 
     if category == "release_year":
-        year = search_word.split("-")
+        years = search_word.split("-")
+
 
     search_results = {}
     for key in collection:
@@ -78,16 +79,6 @@ def get_input():
     #         'a': 1,
     #         'b': 2
     #     }.get(x, 9)
-
-# git pull - zwroci blad
-# git stash (kopiuje do schowka wszystkie zmiany)
-# git pull origin master
-# git stash pop
-# konfllikty i ich rozwiazanie
-# mamy wspolny kod i ta sama wersje na galezi master
-# git pull
-# git checkout -b sort_collection_by_name
-# git checkout -b find_in_collection
 
 def sort_collection(category, order):
 
