@@ -60,10 +60,19 @@ def find_in_collection(
 
     if category == "release_year":
         years = search_word.split("-")
-
+        print(years)
 
     search_results = {}  # Dictionary for find results
     count_results = 0  # Sum of results
+
+    if category == "release_year" and int(compare_word) >= int(years[0]) and int(compare_word) <= int(years[1]):
+            search_results.update({key : collection[key]})
+            print(True)
+
+    elif compare_word.lower() == search_word.lower():
+            search_results.update({key : collection[key]})
+        
+    print_collection(search_results)
 
     for key in collection:
         compare_word = collection[str(key)][category]

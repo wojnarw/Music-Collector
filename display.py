@@ -68,6 +68,7 @@ def print_collection(collection, title="", count_results=""):
 
 
 def print_options():
+<<<<<<< Updated upstream
     print(program_top)
     print(program_bottom)
     print("\n")    
@@ -79,6 +80,18 @@ def print_options():
     print("\t6 - Find album by album name")
     print("\t7 - Full report")
     print("\t8 - Save to file")
+=======
+    print("""\n\n\
+  ok    1 - As a user I want to view all imported albums
+  ok    2 - As a user I want to find all albums by genre
+  ok    3 - As a user I want to find all albums from given time range
+        4 - As a user I want to find shortest/longest album
+  ok    5 - As a user I want to find all albums created by given artist
+  ok    6 - As a user I want to find album by album name
+        7 - As a user I want to get full report in form of set of given statistics (longest album, 
+            shortest album, oldest album, youngest album, all albums count + additional info, how many albums are given the genres)
+        ELSE - exit""")
+>>>>>>> Stashed changes
 
 
 def additional_info(albums, odlest_album, youngest_album, genres, total_length):
