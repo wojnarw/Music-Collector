@@ -65,19 +65,15 @@ def find_in_collection(
     search_results = {}  # Dictionary for find results
     count_results = 0  # Sum of results
 
-    if category == "release_year" and int(compare_word) >= int(years[0]) and int(compare_word) <= int(years[1]):
-            search_results.update({key : collection[key]})
-            print(True)
-
-    elif compare_word.lower() == search_word.lower():
-            search_results.update({key : collection[key]})
-        
-    print_collection(search_results)
-
     for key in collection:
         compare_word = collection[str(key)][category]
-        if compare_word.lower() == search_word.lower():
-            search_results.update({key: collection[key]})
+
+        if category == "release_year" and int(compare_word) >= int(years[0]) and int(compare_word) <= int(years[1]):
+            search_results.update({key : collection[key]})
+
+
+        elif compare_word.lower() == search_word.lower():
+            search_results.update({key : collection[key]})
 
     count_results = len(search_results)  # Sum of results
     # Title for table
@@ -168,7 +164,7 @@ def generate_report():
 
 
 def get_input():
-    choice = input("\n\tChoose whatcha ya gonna do now: ")
+    choice = input("\n\tChoose what do you want to do now: ")
 
     if choice == "1":
         print_collection(collection)
@@ -178,7 +174,7 @@ def get_input():
         find_in_collection(
             "release_year",
             "",
-            "Please specify time range in years, example \"1998-2002\" "
+            "\tPlease specify time range in years, example \"1998-2002\" "
         )
     elif choice == "4":
         sort_collection("length", "asc", "shortest")
@@ -191,30 +187,15 @@ def get_input():
         generate_report()
     elif choice == "8":
         export_collection(collection)
-
-def sort_collection(category, order):
-
-    sorting_results = {}
-
-    if order == "desc":
-        reverse = True
-    elif order == "asc":
-        reverse = False
-
-    if category == "release_year":
-        sort_collection = sorted(collection, key=lambda x: int(collection[x]["release_year"]), reverse=reverse)
-    elif category == "length":
-        sort_collection = sorted(collection, key=lambda x: int(collection[x]["length"].replace(':','')), reverse=reverse)
     else:
-        sort_collection = sorted(collection, key=lambda x: str(collection[x][category].lower()), reverse=reverse)
-    
-    for key in sort_collection:
-        sorting_results.update({key : collection[key]})
-        
-    print_collection(sorting_results) 
+        return
+
+    print_options()
+    get_input()
+
 
 if __name__ == "__main__":
     collection = {}
     import_collection(collection)
-    print_options()
+    print_options(True)
     get_input()
