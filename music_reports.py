@@ -1,4 +1,4 @@
-from display import print_collection, print_options
+from display import print_collection, print_options, additional_info
 
 
 def add_to_collection(collection, new_item):
@@ -41,6 +41,7 @@ def export_collection(collection, filename="export_collection.csv"):
     try:
         with open(filename, "w") as collection_file:
             collection_file.write(export_items)
+        print(f"\tFile {filename} saved.")
     except FileNotFoundError:
         print(f"You don't have permission creating file '/nopermission.csv'!")
 
@@ -60,89 +61,105 @@ def find_in_collection(
     if category == "release_year":
         year = search_word.split("-")
 
-    search_results = {}
-    count_results = 0
+    search_results = {}  # Dictionary for find results
+    count_results = 0  # Sum of results
 
     for key in collection:
         compare_word = collection[str(key)][category]
         if compare_word.lower() == search_word.lower():
             search_results.update({key: collection[key]})
 
-    count_results = len(search_results)
+    count_results = len(search_results)  # Sum of results
+    # Title for table
     title = f"Find by: {category.replace('_',' ').title()}, {search_word}"
+    # Printing table with result
     print_collection(search_results, title, count_results)
-
-
-def additional_info():
-
-    albums = len(collection)
-    sort_oldest_album = sort_collection("release_year", "asc", "oldest")
-    oldest_album = collection[sort_oldest_album[0]]['release_year']
-
-    sort_youngest_album = sort_collection("release_year", "asc", "youngest")
-    youngest_album = collection[sort_youngest_album[-1]]['release_year']
-
-    genres = set()
-
-    for key in range(1, albums):
-        genres.add(collection[str(key)]['genre'])
-
-    print(f"Release years: {oldest_album} - {youngest_album}")
-    print(f"Genres: {genres}")
-    print(f"Total length: {albums}")
+    return count_results
 
 
 def sort_collection(category, order, album_length):
 
-    sorting_results = {}
+    sorting_results = {}  # Dic for sorting results
 
+    # Set ASC or DESC order
     if order == "desc":
         reverse = True
     elif order == "asc":
         reverse = False
 
-    if category == "release_year":
+    # Sort by category
+    if category == "release_year": #Sorting years by int
         sort_collection = sorted(collection, key=lambda x: int(
-            collection[x]["release_year"]), reverse=reverse)
+            collection[x]["release_year"]), reverse=reverse) #All elements of sorting results
         if album_length == "oldest":
-            sort_collection = [sort_collection[0]]
+            sort_collection = [sort_collection[0]] #First element of sorting results
             category = "Oldest album"
         if album_length == "youngest":
-            sort_collection = [sort_collection[-1]]
+            sort_collection = [sort_collection[-1]] #Last element of sorting results
             category = "Youngest album"
-    elif category == "length":
+    elif category == "length": #Sorting length by int
         sort_collection = sorted(collection, key=lambda x: int(
-            collection[x]["length"].replace(':', '')), reverse=reverse)
+            collection[x]["length"].replace(':', '')), reverse=reverse) #All elements of sorting results
         if album_length == "shortest":
-            sort_collection = [sort_collection[0]]
+            sort_collection = [sort_collection[0]] #First element of sorting results
             category = "Shortest album"
         if album_length == "longest":
-            sort_collection = [sort_collection[-1]]
+            sort_collection = [sort_collection[-1]] #Last element of sorting results
             category = "Longest album"
-    else:
+    else:  #Sorting artists, albums and genres by string
         sort_collection = sorted(collection, key=lambda x: str(
-            collection[x][category].lower()), reverse=reverse)
+            collection[x][category].lower()), reverse=reverse) #All elements of sorting results
 
+    # Writing results to dictionary
     for key in sort_collection:
         sorting_results.update({key: collection[key]})
 
+    # Title for table
     title = f"Sorted by: {category.replace('_',' ').title()}"
+
+    #Printing sorting results
     print_collection(sorting_results, title)
-    return sort_collection
 
 
 def generate_report():
-    additional_info()
-    find_in_collection()
+    # Sorting by release year ASC and finding oldest and youngest album
+    sort_years_release = sorted(collection, key=lambda x: int(
+        collection[x]["release_year"]), reverse=False)
+    oldest_album = collection[sort_years_release[0]]['release_year']  # First element od dic
+    youngest_album = collection[sort_years_release[-1]]['release_year']  # Last element of dic
+
+    # Summary of all albums
+    albums = len(collection)
+
+    # Making set of all genres and counting total for length of all albums
+    genres_set = set()
+    total_length = 0.00
+
+    for key in range(1, albums):
+        genres_set.add(collection[str(key)]['genre'])  # Add to genres set
+        # Add to summary of length, converting to float
+        total_length += float(collection[str(key)]['length'].replace(':', '.'))
+
+    # Printing table with all aditionnal ifno
+    additional_info(albums, oldest_album, youngest_album, str(
+        genres_set)[1:-1], str(total_length).replace('.', ':'))
+
+    # Printing how many albums have each genre
+    for genre in genres_set:
+        find_in_collection("genre", genre, "")
+
+    # Printing oldest and youngest album
     sort_collection("release_year", "asc", "oldest")
     sort_collection("release_year", "asc", "youngest")
+
+    # Printing shortest and longest album
     sort_collection("length", "asc", "shortest")
     sort_collection("length", "asc", "longest")
 
 
 def get_input():
-    # choice = input("\n\tChoose whatcha ya gonna do now: ")
-    choice = "7"
+    choice = input("\n\tChoose whatcha ya gonna do now: ")
+
     if choice == "1":
         print_collection(collection)
     elif choice == "2":
@@ -162,30 +179,12 @@ def get_input():
         find_in_collection("album")
     elif choice == "7":
         generate_report()
+    elif choice == "8":
+        export_collection(collection)
 
 
 if __name__ == "__main__":
     collection = {}
     import_collection(collection)
-    # print_collection(collection)
-    # test = collection["10"]["genre"]
-    # print(test)
-    # sort_collection("artist","desc")
-    # sort_collection("album","asc")
-    # sort_collection("release_year","asc","")
-    # sort_collection("release_year","asc", "oldest")
-    # sort_collection("release_year","asc", "youngest")
-    # sort_collection("genre","desc")
-    # sort_collection("length","asc","")
-
-    # export_collection(collection)
-
-    # sort_collection("length","asc","shortest")
-    # sort_collection("length","asc","longest")
-    # print_collection(collection)
-
-    # find_in_collection()
-    # find_in_collection("genre","pop")
-
-    # print_options()
+    print_options()
     get_input()
