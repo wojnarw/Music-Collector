@@ -73,6 +73,7 @@ def find_in_collection(
     if not search_word:
         search_word = input(input_question)
 
+    years = []
     # Check if we are looking for a year or years range
     if category == "release_year":
         # REGEXP (^\d{3,4}-\d{3,4}$)|(^\d{3,4}$)
@@ -80,22 +81,23 @@ def find_in_collection(
         while not re.search("(^\d{3,4}-\d{3,4}$)|(^\d{3,4}$)", search_word):
             search_word = input(input_question)
         years = search_word.split("-")
-        
+
         # if user entered reversed years order, switch variables
         if len(years) == 2 and int(years[0]) > int(years[1]):
             years[0], years[1] = years[1], years[0]
 
     search_results = {}  # Dictionary for find results
     count_results = 0  # Sum of results
-
+    
     for key in collection:
         compare_word = collection[str(key)][category]
 
-        # if user entered single year
-        if category == "release_year" and int(compare_word) >= int(years[0]) and len(years) == 1:
-            search_results.update({key : collection[key]})
         # if user entered years range
-        elif category == "release_year" and int(compare_word) >= int(years[0]) and int(compare_word) <= int(years[1]):
+        if len(years) == 2:
+            if category == "release_year" and int(compare_word) >= int(years[0]) and int(compare_word) <= int(years[1]):
+                search_results.update({key : collection[key]})
+        # if user entered single year
+        if category == "release_year" and int(compare_word) == int(years[0]) and len(years) == 1:
             search_results.update({key : collection[key]})
         # all other search phrases
         elif compare_word.lower() == search_word.lower():
@@ -218,8 +220,29 @@ def add_album():
     print_collection(collection, "", "", True)
 
 
-def edit_album():
-    pass
+def remove_album():
+    print("\n\tREMOVING ALBUM")
+    artist_name = input("\n\tPlease enter artist name: ")
+    album_name = input("\tPlease enter album name: ")
+    
+    search_results = {}  # Dictionary for find results
+
+    for key in collection:
+        compare_word = collection[str(key)]["artist"]
+        if compare_word.lower() == artist_name.lower():
+            search_results.update({key : collection[key]})
+    # if there were matches for artist
+    if search_results:
+        for key in search_results:
+            compare_word = search_results[str(key)]["album"]
+            if compare_word.lower() == album_name.lower():
+                search_results.update({key : search_results[key]})
+        print(search_results)
+        del collection[next(iter(search_results))] 
+    # if no results for given artist and album
+    elif not search_results:
+        print("\n\tThere were no matches. ")
+
 
 
 def get_input():
@@ -253,7 +276,7 @@ def get_input():
     elif choice == "8":
         add_album()
     elif choice == "9":
-        edit_album()
+        remove_album()
     elif choice == "0":
         export_collection(collection)
     elif choice == "10":
