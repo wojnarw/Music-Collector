@@ -35,7 +35,7 @@ program_top = """
 \t█▒                                    MUSIC COLLECTOR                                       █▒
 \t█▒                                                                                          █▒
 \t█▒            ɴᴏᴡ ᴘʟᴀʏɪɴɢ: Despacito ───────────────⚪───────────────────────────           █▒
-\t█▒            ◄◄⠀▐▐ ⠀►►⠀⠀ ⠀ 1:17 / 3:48 ⠀VOLUME 🔊 ▁▂▃▄▅▆▇ 100% ───○  ⠀ ᴴᴰ ⚙ ❐ ⊏⊐           █▒"""
+\t█▒            ◄◄⠀▐▐ ⠀►►⠀⠀ ⠀ 1:17 / 3:48 ⠀VOLUME 🔊 ▁▂▃▄▅▆▇ 150% ───○  ⠀ ᴴᴰ ⚙ ❐ ⊏⊐           █▒"""
 
 program_bottom = """\
 \t█▒                                                                                          █▒
@@ -51,8 +51,10 @@ def fill (check_for_length, total_length, filler):
     return space
 
 
-def print_collection(collection, title="", count_results=""):
-    #os.system('clear')
+def print_collection(collection, title="", count_results="", clear_screen = False):
+    
+    if clear_screen:
+        os.system('clear')
 
     print(f"\n\t {title}")
     if count_results != "":
@@ -90,7 +92,10 @@ def print_options(program_start = False):
     print("\t5 - Find all albums created by given artist")
     print("\t6 - Find album by album name")
     print("\t7 - Full report")
-    print("\t8 - Save to file")
+    print("\t8 - Add album")
+    print("\t9 - Edit album")
+    print("\t0 - Save to file")
+    print("\t10 - Import from file")
 
 
 def additional_info(albums, odlest_album, youngest_album, genres, total_length):
