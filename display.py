@@ -93,7 +93,7 @@ def print_options(program_start = False):
     print("\t6 - Find album by album name")
     print("\t7 - Full report")
     print("\t8 - Add album")
-    print("\t9 - Edit album")
+    print("\t9 - Remove album")
     print("\t0 - Save to file")
     print("\t10 - Import from file")
 
