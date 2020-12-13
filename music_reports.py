@@ -206,7 +206,7 @@ def add_album():
     new_entry.append(new_release_year)
 
     new_genre = input("\tPlease insert genre: ")
-    while not new_genre.isalpha(): # accept only alphabet
+    while not new_genre.replace(" ", "").isalpha(): # accept only alphabet
         new_genre = input("\tPlease insert genre in letters only: ")
     new_entry.append(new_genre)
 
